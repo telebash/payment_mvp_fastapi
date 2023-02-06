@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./deploy/Dockerfile
+    image: payment_mvp:${PAYMENT_MVP_VERSION:-latest}
+    restart: always
+    env_file:
+      - .env
+    labels:
+      # Enables traefik for this container.
+      - traefik.enable=true
+      - traefik.http.routers.payment_mvp.rule=Host(`${PAYMENT_MVP_TRAEFIK_HOST:-payment_mvp.localhost}`)
+      - traefik.http.routers.payment_mvp.entrypoints=http
+      - traefik.http.routers.payment_mvp.service=payment_mvp
+      - traefik.http.services.payment_mvp.loadbalancer.server.port=${PAYMENT_MVP_PORT:-8000}
+    networks:
+      - default
+      - traefik-shared
+    environment:
+      PAYMENT_MVP_HOST: 0.0.0.0
+
+
+
+networks:
+  # Network for traefik.
+  traefik-shared:
+    name: traefik-shared
