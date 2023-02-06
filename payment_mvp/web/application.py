@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.responses import UJSONResponse
+import logging
 from payment_mvp.web.api.router import api_router
+from payment_mvp.settings import settings
 from payment_mvp.web.lifetime import register_startup_event, register_shutdown_event
 from importlib import metadata
 from payment_mvp.logging import configure_logging
@@ -25,6 +27,7 @@ def get_app() -> FastAPI:
         version=metadata.version("payment_mvp"),
         docs_url=None,
         redoc_url=None,
+        
         openapi_url="/api/openapi.json",
         default_response_class=UJSONResponse,
     )
@@ -42,4 +45,6 @@ def get_app() -> FastAPI:
         StaticFiles(directory=APP_ROOT / "static"),
         name="static"
     )
+    
+
     return app
