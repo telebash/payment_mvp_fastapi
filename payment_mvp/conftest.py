@@ -1,15 +1,9 @@
-import asyncio
-from asyncio.events import AbstractEventLoop
-import sys
-from typing import Any, Generator, AsyncGenerator
+from typing import AsyncGenerator
 
 import pytest
 from fastapi import FastAPI
 from httpx import AsyncClient
-import uuid
-from unittest.mock import Mock
 
-from payment_mvp.settings import settings
 from payment_mvp.web.application import get_app
 
 
@@ -23,11 +17,8 @@ def anyio_backend() -> str:
     return 'asyncio'
 
 
-
 @pytest.fixture
-def fastapi_app(
-    
-) -> FastAPI:
+def fastapi_app() -> FastAPI:
     """
     Fixture for creating FastAPI app.
 
@@ -49,4 +40,4 @@ async def client(
     :yield: client for the app.
     """
     async with AsyncClient(app=fastapi_app, base_url="http://test") as ac:
-            yield ac
+        yield ac

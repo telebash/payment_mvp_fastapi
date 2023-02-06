@@ -2,4 +2,4 @@
 from payment_mvp.web.api.docs.views import router
 
 
-__all__ = ['router']
+__all__ = ["router"]

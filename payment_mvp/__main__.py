@@ -1,6 +1,4 @@
 import uvicorn
-import os
-import shutil
 
 from payment_mvp.settings import settings
 

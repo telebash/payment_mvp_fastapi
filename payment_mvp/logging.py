@@ -1,6 +1,6 @@
 import logging
 import sys
-from typing import Any, Union
+from typing import Union
 
 from loguru import logger
 
@@ -39,6 +39,7 @@ class InterceptHandler(logging.Handler):
             level,
             record.getMessage(),
         )
+
 
 def configure_logging() -> None:  # pragma: no cover
     """Configures logging."""
